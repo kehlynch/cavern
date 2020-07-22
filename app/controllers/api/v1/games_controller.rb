@@ -1,5 +1,5 @@
 class Api::V1::GamesController < ApplicationController
-  before_action :find_game, only: :update
+  before_action :find_game, only: [:update, :show]
 
   def index
     games = Game.all.order(created_at: :desc)
@@ -16,6 +16,7 @@ class Api::V1::GamesController < ApplicationController
   end
 
   def show
+    render json: @game, include: [:current_room, :rooms]
   end
 
   def update

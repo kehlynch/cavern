@@ -1,4 +1,8 @@
 import React from 'react';
+import Cookies from 'js-cookie';
+
+import { getGame } from './helpers/api';
+
 import Welcome from './Welcome';
 import Game from './Game';
 
@@ -8,6 +12,12 @@ class Home extends React.Component {
 
     this.setGame = this.setGame.bind(this);
     this.state = { game: null };
+  }
+
+  componentDidMount() {
+    if (Cookies.get('game_id')) {
+      getGame(this.setGame);
+    }
   }
 
   setGame(game) {

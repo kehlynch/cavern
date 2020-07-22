@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import move from './helpers/api';
+import { updateGame } from './helpers/api';
 
 import { RoomType } from '../types';
 
@@ -21,16 +21,22 @@ const directionCodes = {
 class Instruction extends React.Component {
   componentDidMount() {
     const { room: { doors }, setRoom } = this.props;
+    this.move = this.move.bind(this);
     window.addEventListener('keydown', (e) => {
       const dir = directionCodes[e.keyCode];
-      if (dir !== undefined) {
-        if (doors.includes(dir)) {
-          move(dir, setRoom);
-        } else {
-          console.log("can't go that way");
-        }
-      }
+      this.move(dir);
     });
+  }
+
+  move(dir) {
+    const { room: { doors }, setRoom } = this.props;
+    if (dir !== undefined) {
+      if (doors.includes(dir)) {
+        updateGame(dir, setRoom);
+      } else {
+        console.log("can't go that way");
+      }
+    }
   }
 
   doorsInstructionText() {

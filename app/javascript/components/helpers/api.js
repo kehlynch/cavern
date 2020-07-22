@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 
-const move = (dir, callback) => {
+export const updateGame = (dir, callback) => {
   const url = `/api/v1/games/${Cookies.get('game_id')}`;
   const token = document.querySelector('meta[name="csrf-token"]').content;
 
@@ -15,13 +15,44 @@ const move = (dir, callback) => {
     if (response.ok) {
       return response.json();
     }
-    console.log("couldn't parse json", response);
     throw new Error('Network response was not ok.');
-  })
-    .then((data) => callback(data))
-    .catch((error) => {
-      console.log('error', error);
-    });
+  }).then((data) => callback(data));
 };
 
-export default move;
+export const getGame = (callback) => {
+  const url = `/api/v1/games/${Cookies.get('game_id')}`;
+  const token = document.querySelector("meta[name='csrf-token']").content;
+  fetch(url, {
+    method: 'GET',
+    headers: {
+      'X-CSRF-Token': token,
+      'Content-Type': 'application/json',
+      'Key-Inflecctin': 'camel',
+    },
+  }).then((response) => {
+    console.log('response', response);
+    if (response.ok) {
+      return response.json();
+    }
+    throw new Error('Network response was not ok.');
+  }).then((data) => callback(data));
+};
+
+export const createGame = (gameParams, callback) => {
+  const url = '/api/v1/games';
+  const token = document.querySelector("meta[name='csrf-token']").content;
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'X-CSRF-Token': token,
+      'Content-Type': 'application/json',
+      'Key-Inflecctin': 'camel',
+    },
+    body: JSON.stringify(gameParams),
+  }).then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+    throw new Error('Network response was not ok.');
+  }).then((data) => callback(data));
+};

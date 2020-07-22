@@ -18,7 +18,7 @@ class Game extends React.Component {
 
   setRoom(data) {
     console.log('setRoom', data);
-    this.setState({ room: data.currentRoom });
+    this.setState({ room: data.currentRoom, rooms: data.rooms });
   }
 
   render() {

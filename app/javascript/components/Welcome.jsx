@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { createGame } from './helpers/api';
+
 class Welcome extends React.Component {
   constructor(props) {
     super(props);
@@ -14,30 +16,7 @@ class Welcome extends React.Component {
     const { setGame } = this.props;
     const { playerName } = this.state;
 
-    const url = '/api/v1/games';
-    const token = document.querySelector("meta[name='csrf-token']").content;
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'X-CSRF-Token': token,
-        'Content-Type': 'application/json',
-        'Key-Inflecctin': 'camel',
-      },
-      body: JSON.stringify({ name: playerName }),
-    }).then((response) => {
-      console.log('response', response);
-      // console.log('response', response.body());
-      if (response.ok) {
-        return response.json();
-      }
-      console.log('went wrong!');
-      throw new Error('Network response was not ok.');
-    })
-      .then((data) => setGame(data))
-      .catch((error) => {
-        console.log('error', error);
-        // this.props.history.push('/')
-      });
+    createGame({ name: playerName }, setGame);
     event.preventDefault();
   }
 

@@ -44,6 +44,7 @@ class DoorBuilder
     end
 
     if acceptable_path? || (acceptable_path?(0.5) && @resets > 5)
+      remove_deadends!
       p "GOT #{fraction_complete * 100}% OF THE ROOMS after #{@total_room_visits} visits and #{@resets} resets. Done!"
     else
       @rooms.update_all(doors: [])
@@ -56,6 +57,18 @@ class DoorBuilder
   end
 
   private
+
+  def remove_deadends!
+    @rooms.each do |room|
+      room.doors.each do |door|
+        connected_room = next_room(room, door)
+        connected_door = entry_door(door)
+        unless connected_room.doors.include?(connected_door)
+          room.update(doors: room.doors.reject { |d| d == door })
+        end
+      end
+    end
+  end
 
   def choose_exit_door(room, entry_door)
     # pick a random new door to go through, avoid the one we just came from if possible

@@ -3,26 +3,17 @@ import PropTypes from 'prop-types';
 import { RoomType } from '../types';
 
 import RoomTile from './RoomTile';
+import styles from '../styles/Level.module.scss';
 
-class Level extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      rooms: props.rooms,
-    };
-  }
-
-  render() {
-    const { rooms } = this.state;
-    return (
-      <div>
-        <div>
-          {rooms.map((room) => (<RoomTile room={room} key={room.id} />))}
-        </div>
-      </div>
-    );
-  }
-}
+const Level = (props) => {
+  const { rooms } = props;
+  return (
+    <div className={styles.container}>
+      { /* eslint-disable-next-line react/jsx-props-no-spreading */ }
+      {rooms.map((room) => (<RoomTile {...room} key={room.id} />))}
+    </div>
+  );
+};
 
 Level.propTypes = {
   rooms: PropTypes.arrayOf(RoomType).isRequired,

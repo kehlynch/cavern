@@ -68,10 +68,10 @@ class Room < ApplicationRecord
   def legal_doors
     legal_doors = (0..3).to_a
 
-    legal_doors.delete(3) if x_location == 0
-    legal_doors.delete(1) if x_location == Level::SIZE - 1
-    legal_doors.delete(0) if y_location == 0
-    legal_doors.delete(2) if y_location == Level::SIZE - 1
+    legal_doors.delete(3) if x_location == 0 # can't have a west door if on west edge
+    legal_doors.delete(1) if x_location == Level::SIZE - 1 # can't have an east door if on east edge
+    legal_doors.delete(0) if y_location == 0 # can't have a north door if on north edge
+    legal_doors.delete(2) if y_location == Level::SIZE - 1 # can't hav a south door if on south edge
 
     legal_doors
   end
