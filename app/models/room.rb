@@ -1,5 +1,7 @@
 class Room < ApplicationRecord
   belongs_to :game
+  has_many :monsters
+  after_create :generate_monsters
 
   # for info
   DIRECTIONS = {
@@ -74,5 +76,13 @@ class Room < ApplicationRecord
     legal_doors.delete(2) if y_location == Level::SIZE - 1 # can't hav a south door if on south edge
 
     legal_doors
+  end
+
+  private
+
+  def generate_monsters
+    p 'generate_monsters'
+    Monster.create(room: self, game: game)
+    # self.monsters.create
   end
 end

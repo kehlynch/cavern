@@ -7,7 +7,7 @@ import Instruction from './Instruction';
 import { RoomType } from '../types';
 
 const Room = (props) => {
-  const { room, setRoom } = props;
+  const { room, setGame } = props;
   const { doors } = room;
   console.log('rendering Room', room.id);
   return (
@@ -16,14 +16,14 @@ const Room = (props) => {
       {' '}
       { room.id }
       <Doors doors={doors} />
-      <Instruction room={room} setRoom={setRoom} />
+      <Instruction room={room} setGame={setGame} />
     </div>
   );
 };
 
 Room.propTypes = {
   room: RoomType.isRequired,
-  setRoom: PropTypes.func.isRequired,
+  setGame: PropTypes.func.isRequired,
 };
 
 export default Room;

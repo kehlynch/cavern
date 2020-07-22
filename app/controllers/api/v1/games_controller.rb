@@ -12,18 +12,18 @@ class Api::V1::GamesController < ApplicationController
     game = Game.create!(player: player)
     set_game_cookie(game)
     set_player_cookie(player)
-    render json: game, include: [:current_room, :rooms]
+    render json: game, include: {rooms: {}, current_room: {include: :monsters}}
   end
 
   def show
-    render json: @game, include: [:current_room, :rooms]
+    render json: @game, include: {rooms: {}, current_room: {include: :monsters}}
   end
 
   def update
     if game_params[:actionx] == 'move'
       @game.move!(game_params[:direction])
       @game.reload
-      render json: @game, include: [:current_room, :rooms]
+      render json: @game, include: {rooms: {}, current_room: {include: :monsters}}
     end
   end
 

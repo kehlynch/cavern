@@ -50,9 +50,14 @@ export const createGame = (gameParams, callback) => {
     },
     body: JSON.stringify(gameParams),
   }).then((response) => {
+    console.log('createGame response', response);
     if (response.ok) {
       return response.json();
     }
     throw new Error('Network response was not ok.');
-  }).then((data) => callback(data));
+  }).then((data) => {
+    console.log('data', data);
+
+    callback(data);
+  });
 };

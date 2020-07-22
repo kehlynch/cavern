@@ -1,41 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Level from './Level';
 import Room from './Room';
 
 import { GameType } from '../types';
 
-class Game extends React.Component {
-  constructor(props) {
-    super(props);
-    const { game: { rooms, currentRoom } } = props;
-    this.state = {
-      rooms,
-      room: currentRoom,
-    };
-    this.setRoom = this.setRoom.bind(this);
-  }
-
-  setRoom(data) {
-    console.log('setRoom', data);
-    this.setState({ room: data.currentRoom, rooms: data.rooms });
-  }
-
-  render() {
-    const { rooms, room } = this.state;
-    console.log('rendering game - current Room', room.id);
-    return (
-      <div>
-        <p>You are in a cavern</p>
-        <Room room={room} setRoom={this.setRoom} />
-        <Level rooms={rooms} />
-      </div>
-    );
-  }
-}
+const Game = (props) => {
+  const { game: { rooms, currentRoom }, setGame } = props;
+  console.log('rendering game - current Room', currentRoom.id);
+  return (
+    <div>
+      <p>You are in a cavern</p>
+      <Room room={currentRoom} setGame={setGame} />
+      <Level rooms={rooms} />
+    </div>
+  );
+};
 
 Game.propTypes = {
   game: GameType.isRequired,
+  setGame: PropTypes.func.isRequired,
 };
 
 export default Game;

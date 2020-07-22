@@ -20,7 +20,7 @@ const directionCodes = {
 
 class Instruction extends React.Component {
   componentDidMount() {
-    const { room: { doors }, setRoom } = this.props;
+    const { room: { doors }, setGame } = this.props;
     this.move = this.move.bind(this);
     window.addEventListener('keydown', (e) => {
       const dir = directionCodes[e.keyCode];
@@ -29,10 +29,10 @@ class Instruction extends React.Component {
   }
 
   move(dir) {
-    const { room: { doors }, setRoom } = this.props;
+    const { room: { doors }, setGame } = this.props;
     if (dir !== undefined) {
       if (doors.includes(dir)) {
-        updateGame(dir, setRoom);
+        updateGame(dir, setGame);
       } else {
         console.log("can't go that way");
       }
@@ -65,7 +65,7 @@ class Instruction extends React.Component {
 
 Instruction.propTypes = {
   room: RoomType.isRequired,
-  setRoom: PropTypes.func.isRequired,
+  setGame: PropTypes.func.isRequired,
 };
 
 export default Instruction;

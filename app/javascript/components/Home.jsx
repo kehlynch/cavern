@@ -1,7 +1,7 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 
-import { getGame } from './helpers/api';
+import { getGame, createGame } from './helpers/api';
 
 import Welcome from './Welcome';
 import Game from './Game';
@@ -32,7 +32,8 @@ class Home extends React.Component {
       <div className="vw-100 vh-100 primary-color d-flex align-items-center justify-content-center">
         <div className="jumbotron jumbotron-fluid bg-transparent">
           <div className="container secondary-color">
-            {game ? <Game game={game} /> : <Welcome setGame={this.setGame} />}
+            <button type="submit" onClick={() => createGame({}, this.setGame)}>New Game</button>
+            {game ? <Game game={game} setGame={this.setGame} /> : <Welcome setGame={this.setGame} />}
           </div>
         </div>
       </div>

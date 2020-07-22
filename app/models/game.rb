@@ -1,6 +1,7 @@
 class Game < ApplicationRecord
   belongs_to :player
   has_many :rooms, -> { order(:y_location, :x_location) }
+  has_many :monsters
   has_one :current_room, -> { where(current: true) }, class_name: 'Room'
 
   after_create :generate_starting_room
