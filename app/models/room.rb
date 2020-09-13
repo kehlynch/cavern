@@ -9,7 +9,7 @@ class Room < ApplicationRecord
     1 => :east,
     2 => :south,
     3 => :west
-  }
+  }.freeze
 
   class << self
     def random_doors
@@ -28,12 +28,8 @@ class Room < ApplicationRecord
       )
       unless room
         require 'pry'
-        binding.pry()
+        binding.pry
       end
-
-      p ['current_room', current_room]
-
-      p ['next_room', room]
 
       room
     end

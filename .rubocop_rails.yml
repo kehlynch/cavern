@@ -1,0 +1,87 @@
+Rails/ApplicationRecord:
+  Exclude:
+    - 'db/migrate/*'
+    - spec/models/validators/max_length_using_column_type_validator_spec.rb
+
+Rails/BulkChangeTable:
+  Enabled: false
+
+Rails/CreateTableWithTimestamps:
+  Enabled: false
+
+Rails/Delegate:
+  Enabled: false
+
+Rails/DynamicFindBy:
+  Enabled: true
+
+Rails/FilePath:
+  Enabled: false
+
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+Rails/InverseOf:
+  Enabled: false
+
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+
+Rails/NotNullColumn:
+  Enabled: false
+
+Rails/Output:
+  Enabled: false
+
+Rails/OutputSafety:
+  Exclude:
+    - "app/views/admin/kaminari/*"
+    - "app/views/kaminari/**/*"
+    - spec/**/*
+
+Rails/PluralizationGrammar:
+  Enabled: false
+
+Rails/Present:
+  Enabled: false
+
+Rails/ReadWriteAttribute:
+  Enabled: false
+
+Rails/RelativeDateConstant:
+  Enabled: false
+
+Rails/RequestReferer:
+  Enabled: false
+
+Rails/ReversibleMigration:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - development
+    - test
+    - staging
+    - playground
+
+Rails/Validation:
+  Enabled: false
+
+Rails/HelperInstanceVariable:
+  Enabled: false
+
+Rails/ApplicationController:
+  Exclude:
+    - app/controllers/content_security_policy_violations_controller.rb
+    - app/controllers/errors_controller.rb
+    - app/controllers/feeds/base_controller.rb
+
+Rails/RakeEnvironment:
+  Enabled: false

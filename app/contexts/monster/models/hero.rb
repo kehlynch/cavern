@@ -1,12 +1,13 @@
-class Monsters::Hero < Monsters::BaseMonster
+class Hero < BaseMonster
   def initialize
     super(
-      slug: 'hero',
+      name: 'Hero',
       fighting_strength: 5,
       magical_power: nil,
-      hostile: 1..2,
-      indifferent: 3..4,
-      friendly: 5..6,
+      hostile: 1..3,
+      indifferent: nil,
+      friendly: 4..6,
+      buy_points: 6,
       points: 6,
       max_load: 75
     )

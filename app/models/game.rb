@@ -18,10 +18,10 @@ class Game < ApplicationRecord
   def generate_starting_room
     Level.generate_level(self, 0)
 
-    self.rooms.reload
+    rooms.reload
 
-    self.rooms.find_by(stairs_up: true).update(current: true)
+    rooms.find_by(stairs_up: true).update(current: true)
 
-    self.rooms.reload
+    rooms.reload
   end
 end

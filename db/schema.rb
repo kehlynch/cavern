@@ -27,13 +27,6 @@ ActiveRecord::Schema.define(version: 2020_07_22_165038) do
     t.bigint "room_id"
     t.string "slug"
     t.boolean "in_party"
-    t.integer "magical_power"
-    t.integer "fighting_strength"
-    t.numrange "hostile"
-    t.numrange "indifferent"
-    t.numrange "friendly"
-    t.integer "points"
-    t.integer "max_load"
     t.index ["game_id"], name: "index_monsters_on_game_id"
     t.index ["room_id"], name: "index_monsters_on_room_id"
   end

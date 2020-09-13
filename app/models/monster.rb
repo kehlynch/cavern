@@ -4,18 +4,17 @@ class Monster < ApplicationRecord
 
   before_create :set_characteristics
 
+  delegate :name, :fighting_strength, :magical_power, :hostile, :indifferent, :friendly, :points, :buy_points, :max_load, to: :monster_details
+
+  def monster_details
+    @monster_details ||= MonsterContext.details_for(self)
+  end
+
   private
 
   def set_characteristics
     p 'set_characteristics'
-    monster = MonsterGenerator.random_monster
+    monster = MonsterContext.random_monster
     self.slug = monster.slug
-    self.fighting_strength = monster.fighting_strength
-    self.magical_power = monster.magical_power
-    self.hostile = monster.hostile
-    self.indifferent = monster.indifferent
-    self.friendly = monster.friendly
-    self.points = monster.points
-    self.max_load = monster.max_load
   end
 end

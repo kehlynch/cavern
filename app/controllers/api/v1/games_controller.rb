@@ -9,21 +9,21 @@ class Api::V1::GamesController < ApplicationController
   def create
     p '***create'
     player = Player.create(name: game_params[:name])
-    game = Game.create!(player: player)
-    set_game_cookie(game)
+    @game = Game.create!(player: player)
+    set_game_cookie(@game)
     set_player_cookie(player)
-    render json: game, include: {rooms: {}, current_room: {include: :monsters}}
+    render_game
   end
 
   def show
-    render json: @game, include: {rooms: {}, current_room: {include: :monsters}}
+    render_game
   end
 
   def update
     if game_params[:actionx] == 'move'
       @game.move!(game_params[:direction])
       @game.reload
-      render json: @game, include: {rooms: {}, current_room: {include: :monsters}}
+      render_game
     end
   end
 
@@ -31,6 +31,27 @@ class Api::V1::GamesController < ApplicationController
   end
 
   private
+
+  def render_game
+    render(
+      json: @game,
+      only: [:rooms, :current_room],
+      include: {
+        rooms: {
+          only: [:id, :doors, :stairs_up, :stairs_down, :current]
+        },
+        current_room: {
+          only: [:id, :doors, :stairs_up, :stairs_down, :current],
+          include: {
+            monsters: {
+              only: [:id, :slug],
+              methods: [:name, :fighting_strength, :magical_power, :hostile, :indifferent, :friendly, :points, :buy_points, :max_load]
+            }
+          }
+        }
+      }
+    )
+  end
 
   def game_params
     params.permit(:name, :actionx, :direction, :id, game: {})

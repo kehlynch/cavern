@@ -27,15 +27,21 @@ module Cavern
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
+    Dir.glob('app/contexts/*')
+      .select { |p| File.directory?(p) }
+      .each do |context_root_path|
+      %w(models services).each do |dir|
+        config.eager_load_paths += %W(#{config.root}/#{context_root_path}/#{dir})
+      end
+    end
     # Don't generate system test files.
     config.generators.system_tests = nil
 
-
     # camel case support for API
     excluded_routes = ->(env) { !env["PATH_INFO"].match(%r{^/api}) }
-config.middleware.use OliveBranch::Middleware,
-                      inflection:       "camel",
-                      exclude_params:   excluded_routes,
-                      exclude_response: excluded_routes
+    config.middleware.use OliveBranch::Middleware,
+                          inflection:       "camel",
+                          exclude_params:   excluded_routes,
+                          exclude_response: excluded_routes
   end
 end

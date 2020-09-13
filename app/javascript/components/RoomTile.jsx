@@ -1,13 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { DoorType } from '../types';
+import { RoomType } from '../types';
 
 import styles from '../styles/RoomTile.module.scss';
 
 const RoomTile = (props) => {
   const {
-    doors, stairsUp, stairsDown, current,
+    room: {
+      doors, stairsUp, stairsDown, current,
+    },
   } = props;
   const tileClasses = classNames(
     styles.container,
@@ -31,10 +32,6 @@ const RoomTile = (props) => {
 };
 
 RoomTile.propTypes = {
-  doors: PropTypes.arrayOf(DoorType).isRequired,
-  stairsUp: PropTypes.bool.isRequired,
-  stairsDown: PropTypes.bool.isRequired,
-  current: PropTypes.bool.isRequired,
-  id: PropTypes.number.isRequired,
+  room: RoomType.isRequired,
 };
 export default RoomTile;
