@@ -46,6 +46,10 @@ class Api::V1::GamesController < ApplicationController
             monsters: {
               only: [:id, :slug],
               methods: [:name, :fighting_strength, :magical_power, :hostile, :indifferent, :friendly, :points, :buy_points, :max_load]
+            },
+            items: {
+              only: [:id, :slug],
+              methods: [:name, :points, :weight]
             }
           }
         }

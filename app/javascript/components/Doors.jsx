@@ -1,32 +1,19 @@
 import React from 'react';
+import { joinWithAnd } from './helpers/string_utils';
 
 const directions = ['north', 'east', 'south', 'west'];
 
 class Doors extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      doors: props.doors.sort(),
-    };
-  }
-
   doorsText() {
-    const { doors } = this.state;
-    const words = doors.map((d) => directions[d]);
-
-    const lastWord = words.pop();
-    return `${words.join(', ')} and ${lastWord}`;
+    const { doors } = this.props;
+    const words = doors.sort().map((d) => directions[d]);
+    return joinWithAnd(words);
   }
 
   render() {
     return (
       <div>
-        <p>
-          There are openings in the rock to your
-          { this.doorsText() }
-          .
-        </p>
+        <p>There are openings in the rock to your {this.doorsText()}.</p>
       </div>
     );
   }

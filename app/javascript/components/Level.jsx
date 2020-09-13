@@ -9,8 +9,9 @@ const Level = (props) => {
   const { rooms } = props;
   return (
     <div className={styles.container}>
-      { /* eslint-disable-next-line react/jsx-props-no-spreading */ }
-      {rooms.map((room) => (<RoomTile room={room} key={room.id} />))}
+      {rooms.map((room) => (
+        <RoomTile room={room} key={room.id} />
+      ))}
     </div>
   );
 };

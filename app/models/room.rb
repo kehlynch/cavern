@@ -1,7 +1,8 @@
 class Room < ApplicationRecord
   belongs_to :game
   has_many :monsters
-  after_create :generate_monsters
+  has_many :items
+  after_create :generate_contents
 
   # for info
   DIRECTIONS = {
@@ -76,9 +77,11 @@ class Room < ApplicationRecord
 
   private
 
-  def generate_monsters
-    p 'generate_monsters'
-    Monster.create(room: self, game: game)
-    # self.monsters.create
+  def generate_contents
+    contents_count = (1..3).to_a.sample
+    monster_count = (0..contents_count).to_a.sample
+    item_count = contents_count - monster_count
+    monster_count.times { Monster.create(room: self, game: game) }
+    item_count.times { Item.create(room: self, game: game) }
   end
 end

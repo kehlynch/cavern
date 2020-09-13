@@ -7,7 +7,10 @@ import Room from './Room';
 import { GameType } from '../types';
 
 const Game = (props) => {
-  const { game: { rooms, currentRoom }, setGame } = props;
+  const {
+    game: { rooms, currentRoom },
+    setGame,
+  } = props;
   console.log('rendering game - current Room', currentRoom.id);
   return (
     <div>

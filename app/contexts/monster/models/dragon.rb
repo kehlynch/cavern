@@ -1,11 +1,11 @@
-class Spectre < BaseMonster
+class Dragon < BaseMonster
   def initialize
     super(
-      name: 'Spectre',
-      fighting_strength: 5,
+      name: 'Dragon',
+      fighting_strength: 6,
       magical_power: nil,
-      hostile: 1..5,
-      indifferent: 6,
+      hostile: 1..4,
+      indifferent: 5..6,
       friendly: nil,
       buy_points: nil,
       points: nil,
@@ -14,10 +14,10 @@ class Spectre < BaseMonster
   end
 
   def special
-    ['Can only be fought with magical power']
+    'Dragon slayers add 1 to their fighting strength'
   end
 
   def self.relative_probability
-    2
+    3
   end
 end

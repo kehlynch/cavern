@@ -12,8 +12,4 @@ class Giant < BaseMonster
       max_load: 150
     )
   end
-
-  def special
-    'Lotus dust, Eye of God each reduce his strength by only 2'
-  end
 end

@@ -1,0 +1,80 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["airbnb", "airbnb/hooks", "prettier", "prettier/react"],
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "ignorePatterns": ["componentsPackHelper.js"],
+  "rules": {
+    "no-underscore-dangle": ["error", { "allow": ["__html"] }],
+    "camelcase": ["error", { "properties": "never", "allow": ["^UNSAFE_"] }],
+    "func-style": ["error", "expression"],
+    "jsx-a11y/label-has-associated-control": [
+      "warn",
+      {
+        "assert": "htmlFor",
+        "depth": 25
+      }
+    ],
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "react",
+            "importNames": ["useLayoutEffect"],
+            "message": "Use `useClientLayoutEffect` instead to avoid SSR warning"
+          },
+          {
+            "name": "enzyme",
+            "importNames": ["render"],
+            "message": "Mock `useClientSideRendered` to simulate SSR"
+          }
+        ]
+      }
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }]
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "config/webpack/src/main.js"
+      }
+    }
+  },
+  "globals": {
+    "spyOn": true,
+    "setFixtures": true,
+    "Modernizr": true,
+    "ahoy": true
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "extends": [
+        "airbnb-typescript/base",
+        "prettier",
+        "prettier/react",
+        "prettier/@typescript-eslint"
+      ],
+      "parserOptions": {
+        "project": "./tsconfig.json"
+      },
+      "rules": {
+        "import/named": "off",
+        "import/namespace": "off",
+        "import/default": "off",
+        "import/no-named-as-default-member": "off"
+      }
+    },
+    {
+      "files": ["**/*.d.ts"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off"
+      }
+    }
+  ]
+}

@@ -16,4 +16,8 @@ class Sourcerer < BaseMonster
   def special
     'Lotus dust, Eye of God each reduce his strength by only 2'
   end
+
+  def self.relative_probability
+    1
+  end
 end
