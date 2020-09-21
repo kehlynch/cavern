@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_13_134001) do
+ActiveRecord::Schema.define(version: 2020_09_21_140250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2020_09_13_134001) do
     t.bigint "room_id"
     t.string "slug"
     t.boolean "in_party"
+    t.boolean "hostile", default: false
     t.index ["game_id"], name: "index_monsters_on_game_id"
     t.index ["room_id"], name: "index_monsters_on_room_id"
   end

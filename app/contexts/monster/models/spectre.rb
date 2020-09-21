@@ -4,9 +4,9 @@ class Spectre < BaseMonster
       name: 'Spectre',
       fighting_strength: 5,
       magical_power: nil,
-      hostile: 1..5,
-      indifferent: 6,
-      friendly: nil,
+      hostile_roll: 1..5,
+      indifferent_roll: 6,
+      friendly_roll: nil,
       points: nil,
       max_load: nil
     )

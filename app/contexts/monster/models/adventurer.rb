@@ -4,9 +4,9 @@ class Adventurer < BaseMonster
       name: 'Adventurer',
       fighting_strength: 3,
       magical_power: nil,
-      hostile: 1..2,
-      indifferent: 3..4,
-      friendly: 5..6,
+      hostile_roll: 1..2,
+      indifferent_roll: 3..4,
+      friendly_roll: 5..6,
       points: 5,
       max_load: 50
     )

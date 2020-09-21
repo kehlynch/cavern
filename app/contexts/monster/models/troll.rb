@@ -4,9 +4,9 @@ class Troll < BaseMonster
       name: 'Troll',
       fighting_strength: 4,
       magical_power: nil,
-      hostile: 1..3,
-      indifferent: 4,
-      friendly: 5..6,
+      hostile_roll: 1..3,
+      indifferent_roll: 4,
+      friendly_roll: 5..6,
       points: 4,
       max_load: 75
     )

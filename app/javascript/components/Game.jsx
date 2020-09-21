@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import Level from './Level';
 import Room from './Room';
 import Party from './Party';
+import Choices from './Choices';
 
 import { GameType } from '../types';
 import styles from '../styles/Game.module.scss';
 
 const Game = (props) => {
   const {
-    game: { rooms, currentRoom, friends },
+    game: { rooms, currentRoom, friends, choices },
     setGame,
   } = props;
 
@@ -20,6 +21,7 @@ const Game = (props) => {
       <Party friends={friends} />
       <Room room={currentRoom} setGame={setGame} />
       <Level rooms={rooms} />
+      <Choices choices={choices} setGame={setGame} />
     </div>
   );
 };

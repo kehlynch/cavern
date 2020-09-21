@@ -15,6 +15,12 @@ class Game < ApplicationRecord
     reload
   end
 
+  def choices
+    [
+      (:fight if current_room.monsters.present?)
+    ].compact
+  end
+
   private
 
   def generate_starting_room

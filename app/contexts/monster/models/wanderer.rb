@@ -4,9 +4,9 @@ class Wanderer < BaseMonster
       name: 'Wanderer',
       fighting_strength: 2,
       magical_power: nil,
-      hostile: 1..2,
-      indifferent: 3..4,
-      friendly: 5..6,
+      hostile_roll: 1..2,
+      indifferent_roll: 3..4,
+      friendly_roll: 5..6,
       points: 5,
       max_load: 25
     )

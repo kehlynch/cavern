@@ -4,9 +4,9 @@ class Dragon < BaseMonster
       name: 'Dragon',
       fighting_strength: 6,
       magical_power: nil,
-      hostile: 1..4,
-      indifferent: 5..6,
-      friendly: nil,
+      hostile_roll: 1..4,
+      indifferent_roll: 5..6,
+      friendly_roll: nil,
       points: nil,
       max_load: nil
     )

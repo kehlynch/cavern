@@ -1,5 +1,5 @@
 class BaseMonster
-  attr_reader :slug, :name, :fighting_strength, :magical_power, :hostile, :indifferent, :friendly, :points, :max_load
+  attr_reader :slug, :name, :fighting_strength, :magical_power, :hostile_roll, :indifferent_roll, :friendly_roll, :points, :max_load
 
   delegate :buy_points, to: :class
 
@@ -15,14 +15,14 @@ class BaseMonster
     nil
   end
 
-  def initialize(name:, fighting_strength:, magical_power:, hostile:, indifferent:, friendly:, points:, max_load:)
+  def initialize(name:, fighting_strength:, magical_power:, hostile_roll:, indifferent_roll:, friendly_roll:, points:, max_load:)
     @slug = self.class.slug
     @name = name
     @fighting_strength = fighting_strength
     @magical_power = magical_power
-    @hostile = hostile.is_a?(Range) ? hostile.to_a : [hostile]
-    @indifferent = indifferent.is_a?(Range) ? indifferent.to_a : [indifferent]
-    @friendly = friendly.is_a?(Range) ? friendly.to_a : [friendly]
+    @hostile_roll = hostile_roll.is_a?(Range) ? hostile_roll.to_a : [hostile_roll]
+    @indifferent_roll = indifferent_roll.is_a?(Range) ? indifferent_roll.to_a : [indifferent_roll]
+    @friendly_roll = friendly_roll.is_a?(Range) ? friendly_roll.to_a : [friendly_roll]
     @points = points
     @max_load = max_load
   end

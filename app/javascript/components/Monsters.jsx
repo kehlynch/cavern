@@ -12,9 +12,12 @@ import { MonsterType } from '../types';
 const Monsters = (props) => {
   const { monsters } = props;
 
+  const fight = monsters.some((m) => m.hostile);
+
   return (
     <div className={styles.container}>
       There are {monsters.length} strangers here: {joinWithArticle(monsters.map((m) => m.name))}
+      {fight && 'FIGHT'}
       <div className={styles.cardsContainer}>
         {monsters.map((m, i) => (
           <MonsterCard monster={m} key={i} showBuyPoints={false} />

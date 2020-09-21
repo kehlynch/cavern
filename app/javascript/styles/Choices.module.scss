@@ -1,7 +1,9 @@
 .container {
-}
-.cardsContainer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 0.4rem;
+  grid-gap: 0.2rem;
+  grid-auto-rows: 1fr;
+}
+
+.button {
 }

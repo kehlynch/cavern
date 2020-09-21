@@ -4,9 +4,9 @@ class Hero < BaseMonster
       name: 'Hero',
       fighting_strength: 5,
       magical_power: nil,
-      hostile: 1..3,
-      indifferent: nil,
-      friendly: 4..6,
+      hostile_roll: 1..3,
+      indifferent_roll: nil,
+      friendly_roll: 4..6,
       points: 10,
       max_load: 75
     )

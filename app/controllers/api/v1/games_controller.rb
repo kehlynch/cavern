@@ -23,14 +23,15 @@ class Api::V1::GamesController < ApplicationController
     case game_params[:actionx]
     when 'move'
       @game.move!(game_params[:direction])
-      @game.reload
       render_game
     when 'party'
       game_params[:friends].each do |monster_slug|
         Monster.create(game: @game, slug: monster_slug, in_party: true)
       end
       @game.update(party_picked: true)
-      @game.reload
+      render_game
+    when 'fight'
+      @game.current_room.monsters.each(&:make_hostile!)
       render_game
     end
   end
@@ -39,7 +40,7 @@ class Api::V1::GamesController < ApplicationController
     render(
       json: MonsterContext.pickable_slugs.map { |s| Monster.new(slug: s) },
       only: [:slug],
-      methods: [:name, :fighting_strength, :magical_power, :hostile, :indifferent, :friendly, :points, :buy_points, :max_load]
+      methods: [:name, :fighting_strength, :magical_power, :hostile_roll, :indifferent_roll, :friendly_roll, :points, :buy_points, :max_load]
     )
   end
 
@@ -49,9 +50,11 @@ class Api::V1::GamesController < ApplicationController
   private
 
   def render_game
+    @game.reload
     render(
       json: @game,
       only: [:rooms, :current_room, :party_picked],
+      methods: :choices,
       include: {
         friends: {
           only: [:id, :slug],
@@ -65,7 +68,7 @@ class Api::V1::GamesController < ApplicationController
           include: {
             monsters: {
               only: [:id, :slug],
-              methods: [:name, :fighting_strength, :magical_power, :hostile, :indifferent, :friendly, :points, :buy_points, :max_load]
+              methods: [:name, :fighting_strength, :magical_power, :hostile_roll, :indifferent_roll, :friendly_roll, :points, :buy_points, :max_load, :hostile]
             },
             items: {
               only: [:id, :slug],

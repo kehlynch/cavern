@@ -4,9 +4,9 @@ class Sourcerer < BaseMonster
       name: 'Sourcerer',
       fighting_strength: 4,
       magical_power: 9,
-      hostile: 1..6,
-      indifferent: nil,
-      friendly: nil,
+      hostile_roll: 1..6,
+      indifferent_roll: nil,
+      friendly_roll: nil,
       points: nil,
       max_load: nil
     )

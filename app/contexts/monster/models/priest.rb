@@ -4,9 +4,9 @@ class Priest < BaseMonster
       name: 'Priest',
       fighting_strength: 2,
       magical_power: 2,
-      hostile: 1,
-      indifferent: 2..4,
-      friendly: 4..6,
+      hostile_roll: 1,
+      indifferent_roll: 2..4,
+      friendly_roll: 4..6,
       points: 8,
       max_load: 25
     )

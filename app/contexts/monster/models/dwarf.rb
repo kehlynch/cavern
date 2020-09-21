@@ -4,9 +4,9 @@ class Dwarf < BaseMonster
       name: 'Dwarf',
       fighting_strength: 1,
       magical_power: nil,
-      hostile: nil,
-      indifferent: 1..4,
-      friendly: 5..6,
+      hostile_roll: nil,
+      indifferent_roll: 1..4,
+      friendly_roll: 5..6,
       points: 2,
       max_load: 25
     )

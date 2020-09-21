@@ -14,6 +14,7 @@ export const MonsterType = PropTypes.shape({
   points: PropTypes.number,
   buyPoints: PropTypes.number,
   maxLoad: PropTypes.number,
+  hostile: PropTypes.bool,
 });
 
 export const ItemType = PropTypes.shape({
@@ -38,6 +39,7 @@ export const GameType = PropTypes.shape({
   partyPicked: PropTypes.boolean,
   rooms: PropTypes.arrayOf(RoomType).isRequired,
   currentRoom: RoomType.isRequired,
+  choices: PropTypes.arrayOf(PropTypes.string),
 });
 
 export const MONSTER = 'monster';

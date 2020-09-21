@@ -4,9 +4,9 @@ class Wizard < BaseMonster
       name: 'Wizard',
       fighting_strength: 2,
       magical_power: 5,
-      hostile: 1,
-      indifferent: 2..5,
-      friendly: 6,
+      hostile_roll: 1,
+      indifferent_roll: 2..5,
+      friendly_roll: 6,
       points: 15,
       max_load: 0
     )

@@ -4,9 +4,9 @@ class Sibyl < BaseMonster
       name: 'Sibyl',
       fighting_strength: nil,
       magical_power: nil,
-      hostile: nil,
-      indifferent: 1..4,
-      friendly: 5..6,
+      hostile_roll: nil,
+      indifferent_roll: 1..4,
+      friendly_roll: 5..6,
       points: nil,
       max_load: nil
     )
