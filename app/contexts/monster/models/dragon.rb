@@ -7,7 +7,6 @@ class Dragon < BaseMonster
       hostile: 1..4,
       indifferent: 5..6,
       friendly: nil,
-      buy_points: nil,
       points: nil,
       max_load: nil
     )

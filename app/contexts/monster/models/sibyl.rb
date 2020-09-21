@@ -7,7 +7,6 @@ class Sibyl < BaseMonster
       hostile: nil,
       indifferent: 1..4,
       friendly: 5..6,
-      buy_points: nil,
       points: nil,
       max_load: nil
     )

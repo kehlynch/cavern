@@ -1,0 +1,41 @@
+.newGame {
+  padding: 0.4rem;
+  border-radius: 0.4rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  align-self: flex-end;
+  justify-self: flex-end;
+}
+
+.container {
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.midContainer {
+  @media (min-width: 576px) {
+    padding: 4rem 2rem;
+  }
+}
+
+.innerContainer {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+
+  @media(min-width: 576px) {
+    max-width: 540px;
+  }
+  @media(min-width: 768px) {
+    max-width: 720px;
+  }
+  @media(min-width: 992px) {
+    max-width: 960px;
+  }
+}

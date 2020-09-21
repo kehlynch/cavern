@@ -20,11 +20,27 @@ class Api::V1::GamesController < ApplicationController
   end
 
   def update
-    if game_params[:actionx] == 'move'
+    case game_params[:actionx]
+    when 'move'
       @game.move!(game_params[:direction])
       @game.reload
       render_game
+    when 'party'
+      game_params[:friends].each do |monster_slug|
+        Monster.create(game: @game, slug: monster_slug, in_party: true)
+      end
+      @game.update(party_picked: true)
+      @game.reload
+      render_game
     end
+  end
+
+  def pickable
+    render(
+      json: MonsterContext.pickable_slugs.map { |s| Monster.new(slug: s) },
+      only: [:slug],
+      methods: [:name, :fighting_strength, :magical_power, :hostile, :indifferent, :friendly, :points, :buy_points, :max_load]
+    )
   end
 
   def destroy
@@ -35,8 +51,12 @@ class Api::V1::GamesController < ApplicationController
   def render_game
     render(
       json: @game,
-      only: [:rooms, :current_room],
+      only: [:rooms, :current_room, :party_picked],
       include: {
+        friends: {
+          only: [:id, :slug],
+          methods: [:name, :fighting_strength, :magical_power, :points, :buy_points]
+        },
         rooms: {
           only: [:id, :doors, :stairs_up, :stairs_down, :current]
         },
@@ -58,6 +78,6 @@ class Api::V1::GamesController < ApplicationController
   end
 
   def game_params
-    params.permit(:name, :actionx, :direction, :id, game: {})
+    params.permit(:name, :actionx, :direction, :id, game: {}, friends: [])
   end
 end

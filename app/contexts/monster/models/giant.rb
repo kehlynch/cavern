@@ -7,7 +7,6 @@ class Giant < BaseMonster
       hostile: 1..3,
       indifferent: 4..5,
       friendly: 6,
-      buy_points: nil,
       points: 7,
       max_load: 150
     )

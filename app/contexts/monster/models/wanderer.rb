@@ -7,7 +7,6 @@ class Wanderer < BaseMonster
       hostile: 1..2,
       indifferent: 3..4,
       friendly: 5..6,
-      buy_points: 2,
       points: 5,
       max_load: 25
     )
@@ -15,5 +14,9 @@ class Wanderer < BaseMonster
 
   def special
     ['befriends unicorns']
+  end
+
+  def self.buy_points
+    2
   end
 end

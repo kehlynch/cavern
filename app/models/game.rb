@@ -1,10 +1,12 @@
 class Game < ApplicationRecord
   belongs_to :player
   has_many :rooms, -> { order(:y_location, :x_location) }
-  has_many :monsters
+  has_many :friends, -> { where(in_party: true) }, class_name: 'Monster'
   has_one :current_room, -> { where(current: true) }, class_name: 'Room'
 
   after_create :generate_starting_room
+
+  accepts_nested_attributes_for :friends
 
   def move!(direction)
     next_room = rooms.next_from(current_room, direction)

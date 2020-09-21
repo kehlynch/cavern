@@ -7,9 +7,12 @@ class Troll < BaseMonster
       hostile: 1..3,
       indifferent: 4,
       friendly: 5..6,
-      buy_points: 3,
       points: 4,
       max_load: 75
     )
+  end
+
+  def self.buy_points
+    3
   end
 end

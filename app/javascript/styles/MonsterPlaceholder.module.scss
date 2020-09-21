@@ -1,0 +1,24 @@
+@import 'constants';
+
+.container {
+  height: $monsterCardHeight;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px dashed grey;
+  border-radius: 0.4rem;
+
+  &:after {
+    content: '+';
+    font-weight: bold;
+    font-size: xx-large;
+    opacity: 70%;
+  }
+
+  &.droppable {
+    color: green;
+    border: 5px solid green;
+  }
+}

@@ -1,0 +1,68 @@
+@import 'constants';
+
+.container {
+  padding: 0.4rem;
+  text-align: center;
+  border: solid 2px black;
+  border-radius: 0.4rem;
+  background-color: white;
+  // display: grid;
+  // grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-items: start;
+  height: $monsterCardHeight;
+
+  &.clickable {
+    &:hover {
+      // background-color: $lightgreen;
+    }
+  }
+  &.disabled {
+    color: grey;
+    background-color: #fff;
+    pointer-events: none;
+    cursor: forbidden;
+    .name {
+      color: grey;
+    }
+  }
+  &.dragging {
+    opacity: 0.5;
+  }
+  svg {
+    margin-left: 0.4rem;
+    font-size: small;
+  }
+
+  .name {
+    font-weight: bold;
+  }
+}
+
+.icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.buyPoints {
+  grid-row: 1;
+  grid-column: 2;
+  justify-self: end;
+}
+
+.strength {
+  grid-row: 2;
+  grid-column: 1 / 2;
+}
+
+.magic {
+  grid-row: 3;
+  grid-column: 1 / 2;
+}
+
+.maxLoad {
+  grid-row: 4;
+  grid-column: 1 / 2;
+}

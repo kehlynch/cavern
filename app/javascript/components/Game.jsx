@@ -3,18 +3,21 @@ import PropTypes from 'prop-types';
 
 import Level from './Level';
 import Room from './Room';
+import Party from './Party';
 
 import { GameType } from '../types';
+import styles from '../styles/Game.module.scss';
 
 const Game = (props) => {
   const {
-    game: { rooms, currentRoom },
+    game: { rooms, currentRoom, friends },
     setGame,
   } = props;
-  console.log('rendering game - current Room', currentRoom.id);
+
   return (
     <div>
       <p>You are in a cavern</p>
+      <Party friends={friends} />
       <Room room={currentRoom} setGame={setGame} />
       <Level rooms={rooms} />
     </div>

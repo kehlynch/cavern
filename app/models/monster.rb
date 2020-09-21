@@ -14,7 +14,9 @@ class Monster < ApplicationRecord
 
   def set_characteristics
     p 'set_characteristics'
-    monster = MonsterContext.random_monster
-    self.slug = monster.slug
+    unless slug
+      monster = MonsterContext.random_monster
+      self.slug = monster.slug
+    end
   end
 end

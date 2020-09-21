@@ -7,7 +7,6 @@ class Sourcerer < BaseMonster
       hostile: 1..6,
       indifferent: nil,
       friendly: nil,
-      buy_points: nil,
       points: nil,
       max_load: nil
     )

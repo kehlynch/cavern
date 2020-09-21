@@ -7,7 +7,6 @@ class Ranger < BaseMonster
       hostile: 1..3,
       indifferent: nil,
       friendly: 4..6,
-      buy_points: 4,
       points: 10,
       max_load: 50
     )
@@ -19,5 +18,9 @@ class Ranger < BaseMonster
 
   def self.relative_probability
     5
+  end
+
+  def self.buy_points
+    4
   end
 end

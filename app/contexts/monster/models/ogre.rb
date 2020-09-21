@@ -7,7 +7,6 @@ class Ogre < BaseMonster
       hostile: 1..4,
       indifferent: 5,
       friendly: 6,
-      buy_points: nil,
       points: 5,
       max_load: 100
     )

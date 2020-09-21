@@ -7,7 +7,6 @@ class Priest < BaseMonster
       hostile: 1,
       indifferent: 2..4,
       friendly: 4..6,
-      buy_points: 4,
       points: 8,
       max_load: 25
     )
@@ -15,5 +14,9 @@ class Priest < BaseMonster
 
   def special
     'Lotus dust, Eye of God each reduce his strength by only 2'
+  end
+
+  def self.buy_points
+    4
   end
 end

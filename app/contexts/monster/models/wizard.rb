@@ -7,7 +7,6 @@ class Wizard < BaseMonster
       hostile: 1,
       indifferent: 2..5,
       friendly: 6,
-      buy_points: nil,
       points: 15,
       max_load: 0
     )

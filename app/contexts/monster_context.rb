@@ -13,4 +13,8 @@ module MonsterContext
   def self.details_for(monster)
     MONSTER_CLASSES.find { |m| monster.slug == m.slug }.new
   end
+
+  def self.pickable_slugs
+    MONSTER_CLASSES.select { |m| m.buy_points }.map(&:slug)
+  end
 end

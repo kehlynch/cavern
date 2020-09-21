@@ -7,7 +7,6 @@ class Adventurer < BaseMonster
       hostile: 1..2,
       indifferent: 3..4,
       friendly: 5..6,
-      buy_points: 3,
       points: 5,
       max_load: 50
     )
@@ -15,5 +14,9 @@ class Adventurer < BaseMonster
 
   def self.relative_probability
     100
+  end
+
+  def self.buy_points
+    3
   end
 end

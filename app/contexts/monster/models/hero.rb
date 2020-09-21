@@ -7,7 +7,6 @@ class Hero < BaseMonster
       hostile: 1..3,
       indifferent: nil,
       friendly: 4..6,
-      buy_points: 6,
       points: 10,
       max_load: 75
     )
@@ -15,5 +14,9 @@ class Hero < BaseMonster
 
   def self.relative_probability
     5
+  end
+
+  def self.buy_points
+    6
   end
 end

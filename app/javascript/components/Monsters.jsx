@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { joinWithArticle } from './helpers/string_utils';
 
-import Monster from './Monster';
+import MonsterCard from './MonsterCard';
 
 import styles from '../styles/Monsters.module.scss';
 
@@ -15,9 +15,11 @@ const Monsters = (props) => {
   return (
     <div className={styles.container}>
       There are {monsters.length} strangers here: {joinWithArticle(monsters.map((m) => m.name))}
-      {monsters.map((m, i) => (
-        <Monster monster={m} key={i} />
-      ))}
+      <div className={styles.cardsContainer}>
+        {monsters.map((m, i) => (
+          <MonsterCard monster={m} key={i} showBuyPoints={false} />
+        ))}
+      </div>
     </div>
   );
 };

@@ -7,7 +7,6 @@ class Spectre < BaseMonster
       hostile: 1..5,
       indifferent: 6,
       friendly: nil,
-      buy_points: nil,
       points: nil,
       max_load: nil
     )

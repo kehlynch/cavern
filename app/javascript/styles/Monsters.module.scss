@@ -1,6 +1,8 @@
 .container {
-  color: 'green';
+}
+.cardsContainer {
   display: grid;
-  grid-template-rows: repeat(5, 5rem);
-  grid-template-columns: repeat(5, 5rem);
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 0.4rem;
 }

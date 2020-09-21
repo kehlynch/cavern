@@ -7,7 +7,6 @@ class Dwarf < BaseMonster
       hostile: nil,
       indifferent: 1..4,
       friendly: 5..6,
-      buy_points: 1,
       points: 2,
       max_load: 25
     )
@@ -19,5 +18,9 @@ class Dwarf < BaseMonster
 
   def self.relative_probability
     50
+  end
+
+  def self.buy_points
+    1
   end
 end
