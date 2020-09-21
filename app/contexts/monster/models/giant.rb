@@ -4,7 +4,7 @@ class Giant < BaseMonster
       name: 'Giant',
       fighting_strength: 7,
       magical_power: nil,
-      hostile_roll_roll: 1..3,
+      hostile_roll: 1..3,
       indifferent_roll: 4..5,
       friendly_roll: 6,
       points: 7,

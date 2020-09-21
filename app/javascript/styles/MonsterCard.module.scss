@@ -13,6 +13,7 @@
   align-items: start;
   justify-items: start;
   height: $monsterCardHeight;
+  width: $monsterCardWidth;
 
   &.clickable {
     &:hover {

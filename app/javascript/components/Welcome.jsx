@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { createGame } from './helpers/api';
+import styles from '../styles/Welcome.module.scss';
 
 class Welcome extends React.Component {
   constructor(props) {
@@ -28,20 +29,23 @@ class Welcome extends React.Component {
   render() {
     const { playerName } = this.state;
     return (
-      <>
+      <div className={styles.container}>
         <h1 className="display-4">Welcome to Cavern Delver!</h1>
-        <p className="lead">
-          What’s your name?
-        </p>
+        <p className="lead">What’s your name?</p>
         <hr className="my-4" />
 
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="PlayerName">
-            <input type="text" value={playerName} onChange={this.handleNameChange} id="playerName" />
+            <input
+              type="text"
+              value={playerName}
+              onChange={this.handleNameChange}
+              id="playerName"
+            />
           </label>
           <input type="submit" value="Delve the Cavern" />
         </form>
-      </>
+      </div>
     );
   }
 }

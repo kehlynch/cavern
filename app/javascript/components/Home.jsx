@@ -46,22 +46,11 @@ class Home extends React.Component {
     return (
       <div className={styles.container}>
         <DndProvider backend={HTML5Backend}>
-          <div className={styles.midContainer}>
-            <div className={styles.innerContainer}>
-              <button
-                type="submit"
-                className={styles.newGame}
-                onClick={() => createGame({}, this.setGame)}
-              >
-                New Game
-              </button>
-              {!game && <Welcome setGame={this.setGame} />}
-              {game && game.partyPicked && <Game game={game} setGame={this.setGame} />}
-              {game && !game.partyPicked && (
-                <PartyPicker setGame={this.setGame} pickableParty={pickableParty} />
-              )}
-            </div>
-          </div>
+          {!game && <Welcome setGame={this.setGame} />}
+          {game && game.partyPicked && <Game game={game} setGame={this.setGame} />}
+          {game && !game.partyPicked && (
+            <PartyPicker setGame={this.setGame} pickableParty={pickableParty} />
+          )}
         </DndProvider>
       </div>
     );

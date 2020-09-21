@@ -17,6 +17,15 @@ const Game = (props) => {
 
   return (
     <div>
+      <div className={styles.newGameButtonContainer}>
+        <button
+          type="submit"
+          className={styles.newGame}
+          onClick={() => createGame({}, this.setGame)}
+        >
+          New Game
+        </button>
+      </div>
       <p>You are in a cavern</p>
       <Party friends={friends} />
       <Room room={currentRoom} setGame={setGame} />

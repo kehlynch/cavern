@@ -1,0 +1,12 @@
+.newGameButtonContainer {
+  grid-row: 1;
+  grid-column: -1;
+  justify-self: flex-end;
+}
+
+.newGame {
+  padding: 0.4rem;
+  border-radius: 0.4rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}

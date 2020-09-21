@@ -2,34 +2,39 @@
 
 .container {
   display: flex;
+}
+
+.party {
+  grid-row: 1;
+  grid-column: 2;
+  display: flex;
   flex-direction: column;
 }
 
-.cardsContainer {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 0.2rem;
-  grid-auto-rows: 1fr;
+.available {
+  grid-row: 1;
+  grid-column: 1;
 }
 
 .pointsRemaining {
-  padding: 1rem;
-  margin: 1rem;
-  border: 1px solid black;
-  border-radius: 0.4rem;
-  text-align: center;
-  align-self: center;
+  color: grey;
+  font-weight: bold;
+}
+
+.startGameButtonContainer {
+  padding-top: 4rem;
 }
 
 .startGame {
-  padding: 0.4rem;
+  padding: 0.6rem 0.8rem;
   text-align: center;
   border-radius: 0.4rem;
   align-self: flex-end;
   color: green;
   background-color: white;
   &.disabled {
-    color: grey;
+    color: white;
+    border: none;
     background-color: lightgrey;
     pointer-events: none;
     cursor: forbidden;
