@@ -3,8 +3,8 @@ $door-border: 5px solid black;
 .container {
   color: 'green';
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1rem);
+  grid-template-columns: repeat(3, 1rem);
   border: 1px solid grey;
 
   div {
@@ -44,14 +44,20 @@ $door-border: 5px solid black;
 .stairsUp {
   &:after {
     text-align: center;
-    content: '⬆️'
+    margin-top: -4px;
+    content: '↑';
+    grid-row: 2;
+    grid-column: 2;
   }
 }
 
 .stairsDown {
   &:after {
     text-align: center;
-    content: '⬇️'
+    margin-top: -4px;
+    content: '↓';
+    grid-row: 2;
+    grid-column: 2;
   }
 }
 

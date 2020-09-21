@@ -16,21 +16,27 @@ const Game = (props) => {
   } = props;
 
   return (
-    <div>
-      <div className={styles.newGameButtonContainer}>
-        <button
-          type="submit"
-          className={styles.newGame}
-          onClick={() => createGame({}, this.setGame)}
-        >
-          New Game
-        </button>
+    <div className={styles.container}>
+      <div className={styles.party}>
+        <p>You are in a cavern</p>
+        <Party friends={friends} />
       </div>
-      <p>You are in a cavern</p>
-      <Party friends={friends} />
-      <Room room={currentRoom} setGame={setGame} />
-      <Level rooms={rooms} />
-      <Choices choices={choices} setGame={setGame} />
+      <div className={styles.room}>
+        <Room room={currentRoom} setGame={setGame} />
+        <Choices choices={choices} setGame={setGame} />
+      </div>
+      <div className={styles.level}>
+        <div className={styles.newGameButtonContainer}>
+          <button
+            type="submit"
+            className={styles.newGame}
+            onClick={() => createGame({}, this.setGame)}
+          >
+            New Game
+          </button>
+          <Level rooms={rooms} />
+        </div>
+      </div>
     </div>
   );
 };

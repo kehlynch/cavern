@@ -1,7 +1,28 @@
-.newGameButtonContainer {
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.party {
   grid-row: 1;
-  grid-column: -1;
-  justify-self: flex-end;
+  grid-column: 1;
+}
+
+.room {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.level {
+  display: flex;
+  flex-direction: column;
+  grid-row: 1;
+  grid-column: 3;
+}
+
+.newGameButtonContainer {
+  align-self: flex-end;
+  padding-bottom: 2rem;
 }
 
 .newGame {
