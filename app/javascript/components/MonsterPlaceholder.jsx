@@ -7,10 +7,12 @@ import { MONSTER } from '../types';
 import styles from '../styles/MonsterPlaceholder.module.scss';
 
 const MonsterPlaceholder = (props) => {
-  const { addMonster } = props;
+  const { onDrop, dropData } = props;
   const [{ isOver }, drop] = useDrop({
     accept: MONSTER,
-    drop: (item) => addMonster(item.monster),
+    drop: (item) => {
+      onDrop(item.monster, dropData);
+    },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
@@ -18,12 +20,16 @@ const MonsterPlaceholder = (props) => {
   const classes = classNames(styles.container, {
     [styles.droppable]: isOver,
   });
-  console.log('isOver', isOver);
   return <div ref={drop} className={classes} />;
 };
 
+MonsterPlaceholder.defaultProps = {
+  dropData: null,
+};
+
 MonsterPlaceholder.propTypes = {
-  addMonster: PropTypes.func,
+  onDrop: PropTypes.func,
+  dropData: PropTypes.shape({}),
 };
 
 export default MonsterPlaceholder;

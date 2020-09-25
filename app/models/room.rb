@@ -79,6 +79,7 @@ class Room < ApplicationRecord
 
   def generate_contents
     contents_count = (1..3).to_a.sample
+    contents_count = 5
     monster_count = (0..contents_count).to_a.sample
     item_count = contents_count - monster_count
     monster_count.times { Monster.create(room: self, game: game) }

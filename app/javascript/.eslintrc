@@ -40,9 +40,7 @@
   },
   "settings": {
     "import/resolver": {
-      "webpack": {
-        "config": "config/webpack/src/main.js"
-      }
+      "webpack"
     }
   },
   "globals": {
@@ -50,31 +48,5 @@
     "setFixtures": true,
     "Modernizr": true,
     "ahoy": true
-  },
-  "overrides": [
-    {
-      "files": ["**/*.ts", "**/*.tsx"],
-      "extends": [
-        "airbnb-typescript/base",
-        "prettier",
-        "prettier/react",
-        "prettier/@typescript-eslint"
-      ],
-      "parserOptions": {
-        "project": "./tsconfig.json"
-      },
-      "rules": {
-        "import/named": "off",
-        "import/namespace": "off",
-        "import/default": "off",
-        "import/no-named-as-default-member": "off"
-      }
-    },
-    {
-      "files": ["**/*.d.ts"],
-      "rules": {
-        "@typescript-eslint/no-unused-vars": "off"
-      }
-    }
-  ]
+  }
 }

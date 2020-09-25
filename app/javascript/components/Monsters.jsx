@@ -17,7 +17,6 @@ const Monsters = (props) => {
   return (
     <div className={styles.container}>
       There are {monsters.length} strangers here: {joinWithArticle(monsters.map((m) => m.name))}
-      {fight && 'FIGHT'}
       <div className={styles.cardsContainer}>
         {monsters.map((m, i) => (
           <MonsterCard monster={m} key={i} showBuyPoints={false} />

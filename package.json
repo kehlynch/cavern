@@ -10,6 +10,7 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "bootstrap": "^4.5.0",
     "classnames": "^2.2.6",
+    "eslint-import-resolver-webpack": "^0.12.2",
     "jquery": "^3.5.1",
     "js-cookie": "^2.2.1",
     "popper.js": "^1.16.1",
