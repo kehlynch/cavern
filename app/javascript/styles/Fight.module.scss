@@ -1,2 +1,25 @@
 .container {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.friends {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.fighters {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.monsters {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }

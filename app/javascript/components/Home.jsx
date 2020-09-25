@@ -1,10 +1,9 @@
 import React from 'react';
-import classNames from 'classnames';
 import Cookies from 'js-cookie';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
-import { getGame, getPickableParty, createGame } from './helpers/api';
+import { getGame, getPickableParty } from './helpers/api';
 
 import Welcome from './Welcome';
 import Game from './Game';
@@ -28,7 +27,6 @@ class Home extends React.Component {
   }
 
   setGame(game) {
-    console.log('setGame', game);
     this.setState({ game });
     if (!game.partyPicked) {
       getPickableParty(this.setPickableParty);
@@ -36,13 +34,11 @@ class Home extends React.Component {
   }
 
   setPickableParty(pickableParty) {
-    console.log('pickableParty', pickableParty);
     this.setState({ pickableParty });
   }
 
   render() {
     const { game, pickableParty } = this.state;
-    console.log('rendering home, game: ', game);
     return (
       <div className={styles.container}>
         <DndProvider backend={HTML5Backend}>

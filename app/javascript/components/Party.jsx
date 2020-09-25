@@ -8,19 +8,14 @@ import { MonsterType } from '../types';
 import styles from '../styles/Party.module.scss';
 
 const Party = (props) => {
-  const { friends, fight } = props;
+  const { friends } = props;
 
   return (
     <div className={styles.container}>
       Your party:
       <CardList>
-        {friends.map((m, i) => (
-          <MonsterCard
-            monster={m}
-            key={`party-${m.slug}-${i}`}
-            showBuyPoints={false}
-            draggable={fight}
-          />
+        {friends.map((m) => (
+          <MonsterCard monster={m} key={`party-${m.id}`} showBuyPoints={false} />
         ))}
       </CardList>
     </div>
@@ -29,7 +24,6 @@ const Party = (props) => {
 
 Party.propTypes = {
   friends: PropTypes.arrayOf(MonsterType),
-  fight: PropTypes.bool,
 };
 
 export default Party;

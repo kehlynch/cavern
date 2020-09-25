@@ -29,7 +29,7 @@
       color: grey;
     }
   }
-  &.dragging {
+  &.dragging, &.used {
     opacity: 0.5;
   }
   svg {
