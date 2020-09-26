@@ -27,6 +27,7 @@ class Fight extends React.Component {
   };
 
   removeFighter(fighter, callback) {
+    console.log('removeFighter', this.state);
     this.setState(
       (state) => {
         const { battles } = state;

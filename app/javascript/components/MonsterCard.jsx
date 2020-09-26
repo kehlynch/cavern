@@ -34,7 +34,14 @@ const MonsterCard = (props) => {
   });
 
   return (
-    <button ref={drag} onClick={onclick} className={containerClasses} type="button">
+    <button
+      ref={drag}
+      onClick={() => {
+        onclick(monster);
+      }}
+      className={containerClasses}
+      type="button"
+    >
       <div className={styles.name}>{name}</div>
       {showBuyPoints && <div className={styles.buyPoints}>{buyPoints} points</div>}
       <div className={styles.strength}>

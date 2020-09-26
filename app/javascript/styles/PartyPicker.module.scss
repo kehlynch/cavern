@@ -1,12 +1,11 @@
 @import 'constants';
 
 .container {
+  align-self: stretch;
   display: flex;
 }
 
 .party {
-  grid-row: 1;
-  grid-column: 2;
   display: flex;
   flex-direction: column;
 }

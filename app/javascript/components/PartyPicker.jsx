@@ -27,6 +27,7 @@ class PartyPicker extends React.Component {
   }
 
   addToParty(monster) {
+    console.log('addToParty', monster);
     this.setState((state) => {
       const { picked } = state;
       picked.push(monster);
@@ -67,7 +68,7 @@ class PartyPicker extends React.Component {
                   key={`party-select-${slug}`}
                   disabled={remainingPoints < monster.buyPoints}
                   showBuyPoints
-                  draggable
+                  onclick={this.addToParty}
                 />
               );
             })}
@@ -83,6 +84,9 @@ class PartyPicker extends React.Component {
     const remainingPoints = BUY_POINTS - spentPoints;
     return (
       <div className={styles.container}>
+        <div className={styles.available}>
+          {pickableParty && this.renderPickableParty(remainingPoints)}
+        </div>
         <div className={styles.party}>
           <h3>Your party</h3>
           <p className={styles.pointsRemaining}>{remainingPoints} points(s) remaining</p>
@@ -102,9 +106,6 @@ class PartyPicker extends React.Component {
               Start game
             </button>
           </div>
-        </div>
-        <div className={styles.available}>
-          {pickableParty && this.renderPickableParty(remainingPoints)}
         </div>
       </div>
     );

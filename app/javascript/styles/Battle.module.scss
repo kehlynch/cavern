@@ -10,9 +10,12 @@
 }
 
 .fighters {
-  align-self: stretch;
-  display: flex;
+  width: $monsterCardWidth;
   justify-content: space-around;
+  display: flex;
+  &.twoFighters {
+    width: ($monsterCardWidth * 2) + 1rem;
+  }
 }
 
 .monsters {

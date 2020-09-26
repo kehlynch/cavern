@@ -21,8 +21,9 @@ const Picked = (props) => {
               <MonsterCard
                 monster={monster}
                 onclick={() => removeFromParty(monster)}
+                // eslint-disable-next-line react/no-array-index-key
                 key={`picked-${slug}-${i}`}
-                showBuyPoints={true}
+                showBuyPoints
               />
             );
           })}

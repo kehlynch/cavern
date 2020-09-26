@@ -1,56 +1,60 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import { useDrop } from 'react-dnd';
 
 import MonsterCard from './MonsterCard';
-import MonsterPlaceholder from './MonsterPlaceholder';
+import FighterSlot from './FighterSlot';
 
 import styles from '../styles/Battle.module.scss';
 
-import { MonsterType } from '../types';
+import { MONSTER, MonsterType } from '../types';
 
-class Battle extends React.Component {
-  renderPlaceholder(i) {
-    const { addFighter } = this.props;
-    return <MonsterPlaceholder key={`placeholder-${i}`} onDrop={addFighter} />;
-  }
+const Battle = (props) => {
+  const { fighters, monsters, twoFightersAllowed, addFighter } = props;
+  const [{ isOver }, drop] = useDrop({
+    accept: MONSTER,
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  });
 
-  renderFighterSlot(fighter, battleType, battleIndex) {
-    if (fighter) {
-      return <MonsterCard monster={fighter} key={`fighter-${fighter.id}`} draggable />;
-    }
-    return this.renderPlaceholder(battleIndex, battleType);
-  }
+  const slotsToDisplay =
+    isOver && fighters.length === 1 && twoFightersAllowed ? 2 : Math.max(1, fighters.length);
+  const fightersClasses = classNames(styles.fighters, {
+    [styles.twoFighters]: slotsToDisplay === 2,
+  });
 
-  render() {
-    const { fighters, monsters } = this.props;
-    const slotsToDisplay = Math.max(1, fighters.length);
-    const containerClasses = classNames(styles.container, {
-      // [styles.disabled]: remainingPoints > 0,
-    });
-
-    return (
-      <div className={containerClasses}>
-        {[...Array(slotsToDisplay)].map((_, i) => this.renderFighterSlot(fighters[i]))}
-        <div className={styles.monsters}>
-          {monsters.map((monster) => (
-            <MonsterCard monster={monster} key={monster.id} />
-          ))}
-        </div>
+  return (
+    <div ref={drop} className={styles.container}>
+      <div className={fightersClasses}>
+        {[...Array(slotsToDisplay)].map((_, i) => (
+          <FighterSlot
+            fighter={fighters[i]}
+            addFighter={addFighter}
+            // eslint-disable-next-line react/no-array-index-key
+            key={`${fighters[i]?.id || 'placeholder'}-${i}`}
+          />
+        ))}
       </div>
-    );
-  }
-}
+      <div className={styles.monsters}>
+        {monsters.map((monster) => (
+          <MonsterCard monster={monster} key={monster.id} />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 Battle.defaultProps = {
-  // twoMonsters: false,
+  // twoMonstersAllowed: false,
 };
 
 Battle.propTypes = {
   fighters: PropTypes.arrayOf(MonsterType),
   monsters: PropTypes.arrayOf(MonsterType),
   addFighter: PropTypes.func,
-  // twoFightersAllowed: PropTypes.boolean,
+  twoFightersAllowed: PropTypes.bool,
   // twoMonstersAllowed: PropTypes.boolean,
 };
 
