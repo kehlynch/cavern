@@ -1,0 +1,22 @@
+@import 'constants';
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: ($monsterCardHeight * 2) + 2rem;
+}
+
+.fighters {
+  align-self: stretch;
+  display: flex;
+  justify-content: space-around;
+}
+
+.monsters {
+  align-self: stretch;
+  display: flex;
+  justify-content: space-around;
+}

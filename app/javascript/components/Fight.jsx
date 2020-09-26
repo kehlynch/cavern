@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MonsterCard from './MonsterCard';
-import MonsterPlaceholder from './MonsterPlaceholder';
+import Battle from './Battle';
 
 import styles from '../styles/Fight.module.scss';
 
@@ -20,37 +20,22 @@ class Fight extends React.Component {
 
   initializeState = (props) => {
     const { monsters, friends } = props;
-    const monsterCount = monsters.length;
-
-    const slots = {
-      even: Array(monsterCount).fill(null),
-      twoFriends: Array(monsterCount * 2).fill(null),
-      twoMonsters: Array(Math.ceil(monsterCount / 2)).fill(null),
-    };
-
-    return { slots, twoFriendsAllowed: monsters.length < friends.length };
+    const battles = monsters.map((m) => ({ fighters: [], monsters: [m] }));
+    const twoMonstersAllowed = friends.length <= Math.ceil(monsters.length / 2);
+    const twoFightersAllowed = monsters.length < friends.length;
+    return { battles, twoMonstersAllowed, twoFightersAllowed };
   };
 
-  // removeFighter(_fighter, { slotType, slotIndex }) {
-  //   this.setState((state) => {
-  //     const { slots } = state;
-  //     slots[slotType][slotIndex] = null;
-  //     return { slots };
-  //   });
-  // }
-
   removeFighter(fighter, callback) {
-    console.log('removeFighter', fighter, this.state);
     this.setState(
       (state) => {
-        const { slots } = state;
-        const removeFrom = (fighters) => fighters.map((f) => (f && f.id !== fighter.id ? f : null));
+        const { battles } = state;
         return {
-          slots: {
-            even: removeFrom(slots.even),
-            twoFriends: removeFrom(slots.twoFriends),
-            twoMonsters: removeFrom(slots.twoMonsters),
-          },
+          ...state,
+          battles: battles.map((b) => ({
+            ...b,
+            fighters: b.fighters.filter((f) => f.id !== fighter.id),
+          })),
         };
       },
       () => {
@@ -61,37 +46,20 @@ class Fight extends React.Component {
     );
   }
 
-  addFighter(fighter, { slotType, slotIndex }) {
+  addFighter(fighter, battleIndex) {
     console.log('addFighter', this.state);
     this.removeFighter(fighter, () =>
       this.setState((state) => {
-        const { slots } = state;
-        slots[slotType][slotIndex] = fighter;
-        return { slots };
+        const { battles } = state;
+        battles[battleIndex].fighters.push(fighter);
+        return { ...state, battles };
       }),
     );
   }
 
-  renderPlaceholder(i, type) {
-    return (
-      <MonsterPlaceholder
-        key={`placeholder-${i}`}
-        onDrop={this.addFighter}
-        dropData={{ slotType: type, slotIndex: i }}
-      />
-    );
-  }
-
-  renderFighterSlot(fighter, slotType, slotIndex) {
-    if (fighter) {
-      return <MonsterCard monster={fighter} key={`fighter-${fighter.id}`} draggable />;
-    }
-    return this.renderPlaceholder(slotIndex, slotType);
-  }
-
   render() {
-    const { friends, monsters } = this.props;
-    const { slots } = this.state;
+    const { friends } = this.props;
+    const { battles, twoFightersAllowed, twoMonstersAllowed } = this.state;
 
     return (
       <div className={styles.container}>
@@ -101,17 +69,23 @@ class Fight extends React.Component {
               monster={friend}
               key={friend.id}
               onDrag={this.removeFighter}
-              used={Object.values(slots).flat().includes(friend)}
+              used={battles
+                .map((b) => b.fighters)
+                .flat()
+                .includes(friend)}
               draggable
             />
           ))}
         </div>
-        <div className={styles.fighters}>
-          {slots.even.map((fighter, i) => this.renderFighterSlot(fighter, 'even', i))}
-        </div>
-        <div className={styles.monsters}>
-          {monsters.map((monster) => (
-            <MonsterCard monster={monster} key={monster.id} />
+        <div className={styles.battles}>
+          {battles.map((battle, i) => (
+            <Battle
+              {...battle}
+              key={battle.monsters.map((m) => m.id).join(',')}
+              addFighter={(fighter) => this.addFighter(fighter, i)}
+              twoFightersAllowed={twoFightersAllowed}
+              twoMonstersAllowed={twoMonstersAllowed}
+            />
           ))}
         </div>
       </div>

@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import MonsterCard from './MonsterCard';
-import MonsterPlaceholder from './MonsterPlaceholder';
 import CardList from './CardList';
 import Picked from './PartyPicker/Picked';
 import { pickParty } from './helpers/api';
@@ -18,6 +17,8 @@ class PartyPicker extends React.Component {
 
     this.state = { picked: [] };
     this.startGame = this.startGame.bind(this);
+    this.removeFromParty = this.removeFromParty.bind(this);
+    this.addToParty = this.addToParty.bind(this);
   }
 
   pick(party) {
@@ -29,18 +30,18 @@ class PartyPicker extends React.Component {
     this.setState((state) => {
       const { picked } = state;
       picked.push(monster);
-      return { picked: picked };
+      return { picked };
     });
   }
 
   removeFromParty(monster) {
     this.setState((state) => {
       const { picked } = state;
-      const firstIndex = picked.findIndex((m) => m.slug == monster.slug);
+      const firstIndex = picked.findIndex((m) => m.slug === monster.slug);
       if (firstIndex > -1) {
         picked.splice(firstIndex, 1);
       }
-      return { picked: picked };
+      return { picked };
     });
   }
 
@@ -58,12 +59,12 @@ class PartyPicker extends React.Component {
         <CardList>
           {pickableParty
             .sort((a, b) => b.buyPoints - a.buyPoints)
-            .map((monster, i) => {
+            .map((monster) => {
               const { slug } = monster;
               return (
                 <MonsterCard
                   monster={monster}
-                  key={`party-select-${slug}-${i}`}
+                  key={`party-select-${slug}`}
                   disabled={remainingPoints < monster.buyPoints}
                   showBuyPoints
                   draggable
@@ -88,14 +89,15 @@ class PartyPicker extends React.Component {
           <Picked
             picked={picked}
             remainingPoints={remainingPoints}
-            removeFromParty={this.removeFromParty.bind(this)}
-            addToParty={this.addToParty.bind(this)}
+            removeFromParty={this.removeFromParty}
+            addToParty={this.addToParty}
           />
 
           <div className={styles.startGameButtonContainer}>
             <button
               className={classNames(styles.startGame, { [styles.disabled]: remainingPoints > 0 })}
               onClick={this.startGame}
+              type="button"
             >
               Start game
             </button>
