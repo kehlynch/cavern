@@ -6,8 +6,40 @@
   justify-content: space-between;
 }
 
-.battles, .friends {
+.battles {
   align-self: stretch;
   display: flex;
+  flex-direction: column;
+}
+
+.friends {
+  display: flex;
+  align-self: flex-start;
   justify-content: flex-start;
+  button {
+    margin-right: 1rem;
+
+  }
+}
+
+.oneMonsterBattles {
+  // position: absolute;
+  align-self: stretch;
+  display: flex;
+  justify-content: space-between;
+}
+
+.twoMonsterBattles {
+  align-self: stretch;
+  display: flex;
+  justify-content: space-between;
+}
+
+.battle, .twoMonsterBattle {
+  flex: 1;
+  display: flex;
+}
+
+.hoverZone {
+  align-self: flex-end;
 }

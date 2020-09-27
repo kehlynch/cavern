@@ -1,8 +1,10 @@
 import React from 'react';
+// import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 import MonsterCard from './MonsterCard';
 import Battle from './Battle';
+import Hoverable from './Hoverable';
 
 import styles from '../styles/Fight.module.scss';
 
@@ -14,20 +16,120 @@ class Fight extends React.Component {
 
     this.addFighter = this.addFighter.bind(this);
     this.removeFighter = this.removeFighter.bind(this);
+    this.maybeShowTwoMonsterBattle = this.maybeShowTwoMonsterBattle.bind(this);
+    this.maybeHideTwoMonsterBattle = this.maybeHideTwoMonsterBattle.bind(this);
 
     this.state = this.initializeState(props);
   }
 
+  getBattleId = (monsters) => {
+    return monsters
+      .map((m) => m.id)
+      .sort()
+      .join(',');
+  };
+
   initializeState = (props) => {
     const { monsters, friends } = props;
-    const battles = monsters.map((m) => ({ fighters: [], monsters: [m] }));
+
+    let battles = monsters.map((m) => ({
+      id: this.getBattleId([m]),
+      fighters: [],
+      monsters: [m],
+      visible: false,
+    }));
     const twoMonstersAllowed = friends.length <= Math.ceil(monsters.length / 2);
+    if (twoMonstersAllowed) {
+      const twoMonsterBattles = battles.reduce((acc, battle, index, arr) => {
+        const nextBattle = arr[index + 1];
+        if (nextBattle) {
+          const mergedMonsters = battle.monsters.concat(nextBattle.monsters);
+          acc.push({
+            id: this.getBattleId(mergedMonsters),
+            monsters: mergedMonsters,
+            fighters: [],
+            visible: true,
+          });
+        }
+
+        return acc;
+      }, []);
+
+      battles = battles.concat(twoMonsterBattles);
+    }
+
     const twoFightersAllowed = monsters.length < friends.length;
     return { battles, twoMonstersAllowed, twoFightersAllowed };
   };
 
+  findBattle(battleId) {
+    const { battles } = this.state;
+    return battles.find((b) => b.id === battleId);
+  }
+
+  maybeHideTwoMonsterBattle(battlesToRestore) {
+    if (!battlesToRestore.every((b) => b)) {
+      return;
+    }
+    const { battles } = this.state;
+
+    const mergedId = this.getBattleId(battlesToRestore.map((b) => b.monsters).flat());
+    const mergedBattle = this.findBattle(mergedId);
+    if (mergedBattle && mergedBattle.fighters.length === 0) {
+      this.setState((state) => {
+        const newBattles = battles.map((b) => {
+          if (b === mergedBattle) {
+            return { ...b, visible: false };
+          }
+          if (battlesToRestore.includes(b)) {
+            return { ...b, visible: true };
+          }
+          return b;
+        });
+        return {
+          ...state,
+          battles: newBattles,
+        };
+      });
+    }
+  }
+
+  maybeShowTwoMonsterBattle(battleIds) {
+    const { twoMonstersAllowed, battles } = this.state;
+    if (!twoMonstersAllowed) {
+      return;
+    }
+    const battlesToMerge = battles.filter((b) => battleIds.includes(b.id));
+    if (!battlesToMerge.every((b) => b)) {
+      return;
+    }
+
+    if (battlesToMerge.map((b) => b.fighters).flat().length !== 0) {
+      return;
+    }
+
+    const mergedMonsters = battlesToMerge.map((b) => b.monsters).flat();
+    const mergedBattleId = this.getBattleId(mergedMonsters);
+    const mergedBattle = this.findBattle(mergedBattleId);
+
+    this.setState((state) => {
+      const newBattles = battles.map((b) => {
+        if (b === mergedBattle) {
+          return { ...b, visible: true };
+        }
+        if (battlesToMerge.includes(b)) {
+          return { ...b, visible: false };
+        }
+        return b;
+      });
+      return {
+        ...state,
+        battles: newBattles,
+      };
+    });
+  }
+
   removeFighter(fighter, callback) {
-    console.log('removeFighter', this.state);
     this.setState(
       (state) => {
         const { battles } = state;
@@ -47,12 +149,12 @@ class Fight extends React.Component {
     );
   }
 
-  addFighter(fighter, battleIndex) {
-    console.log('addFighter', this.state);
+  addFighter(fighter, battleId) {
+    console.log('addFighter', this.state, battleId);
     this.removeFighter(fighter, () =>
       this.setState((state) => {
         const { battles } = state;
-        battles[battleIndex].fighters.push(fighter);
+        battles.find((b) => b.id === battleId).fighters.push(fighter);
         return { ...state, battles };
       }),
     );
@@ -60,7 +162,12 @@ class Fight extends React.Component {
 
   render() {
     const { friends } = this.props;
-    const { battles, twoFightersAllowed, twoMonstersAllowed } = this.state;
+    const { battles, twoFightersAllowed } = this.state;
+
+    console.log('render', this.state);
+
+    const oneMonsterBattles = battles.filter((b) => b.monsters.length === 1);
+    const twoMonsterBattles = battles.filter((b) => b.monsters.length === 2);
 
     return (
       <div className={styles.container}>
@@ -79,15 +186,39 @@ class Fight extends React.Component {
           ))}
         </div>
         <div className={styles.battles}>
-          {battles.map((battle, i) => (
-            <Battle
-              {...battle}
-              key={battle.monsters.map((m) => m.id).join(',')}
-              addFighter={(fighter) => this.addFighter(fighter, i)}
-              twoFightersAllowed={twoFightersAllowed}
-              twoMonstersAllowed={twoMonstersAllowed}
-            />
-          ))}
+          <div className={styles.twoMonsterBattles}>
+            {twoMonsterBattles.map((battle) => {
+              return (
+                <div className={styles.twoMonsterBattle} key={battle.id}>
+                  <Battle
+                    {...battle}
+                    addFighter={(fighter) => this.addFighter(fighter, battle.id)}
+                    twoFightersAllowed={false}
+                    visible={battle.visible}
+                  />
+                </div>
+              );
+            })}
+          </div>
+          <div className={styles.oneMonsterBattles}>
+            {oneMonsterBattles.map((battle, i, array) => {
+              return (
+                <div className={styles.battle} key={battle.id}>
+                  <Battle
+                    {...battle}
+                    addFighter={(fighter) => this.addFighter(fighter, battle.id)}
+                    twoFightersAllowed={twoFightersAllowed}
+                    visible={battle.visible}
+                  />
+                  <div className={styles.hoverZone} />
+                  <Hoverable
+                    onHover={() => this.maybeShowTwoMonsterBattle([battle.id, array[i + 1]?.id])}
+                    onStopHover={() => this.maybeHideTwoMonsterBattle([battle, array[i + 1]])}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     );

@@ -11,7 +11,7 @@ import styles from '../styles/Battle.module.scss';
 import { MONSTER, MonsterType } from '../types';
 
 const Battle = (props) => {
-  const { fighters, monsters, twoFightersAllowed, addFighter } = props;
+  const { fighters, monsters, twoFightersAllowed, addFighter, visible } = props;
   const [{ isOver }, drop] = useDrop({
     accept: MONSTER,
     collect: (monitor) => ({
@@ -22,11 +22,14 @@ const Battle = (props) => {
   const slotsToDisplay =
     isOver && fighters.length === 1 && twoFightersAllowed ? 2 : Math.max(1, fighters.length);
   const fightersClasses = classNames(styles.fighters, {
-    [styles.twoFighters]: slotsToDisplay === 2,
+    [styles.doubleWidth]: slotsToDisplay === 2 || monsters.length === 2,
   });
 
+  const containerClasses = classNames(styles.container, {
+    [styles.hidden]: !visible,
+  });
   return (
-    <div ref={drop} className={styles.container}>
+    <div ref={drop} className={containerClasses}>
       <div className={fightersClasses}>
         {[...Array(slotsToDisplay)].map((_, i) => (
           <FighterSlot
@@ -47,7 +50,7 @@ const Battle = (props) => {
 };
 
 Battle.defaultProps = {
-  // twoMonstersAllowed: false,
+  visible: PropTypes.bool,
 };
 
 Battle.propTypes = {
@@ -55,6 +58,7 @@ Battle.propTypes = {
   monsters: PropTypes.arrayOf(MonsterType),
   addFighter: PropTypes.func,
   twoFightersAllowed: PropTypes.bool,
+  visible: PropTypes.bool,
   // twoMonstersAllowed: PropTypes.boolean,
 };
 

@@ -9,7 +9,7 @@ import { pickParty } from './helpers/api';
 import { MonsterType } from '../types';
 import styles from '../styles/PartyPicker.module.scss';
 
-const BUY_POINTS = 6;
+const BUY_POINTS = 12;
 
 class PartyPicker extends React.Component {
   constructor(props) {

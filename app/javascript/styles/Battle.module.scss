@@ -7,13 +7,16 @@
   align-items: center;
   justify-content: space-between;
   height: ($monsterCardHeight * 2) + 2rem;
+  &.hidden {
+    visibility: hidden;
+  }
 }
 
 .fighters {
   width: $monsterCardWidth;
   justify-content: space-around;
   display: flex;
-  &.twoFighters {
+  &.doubleWidth {
     width: ($monsterCardWidth * 2) + 1rem;
   }
 }
