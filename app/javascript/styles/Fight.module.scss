@@ -6,12 +6,6 @@
   justify-content: space-between;
 }
 
-.battles {
-  align-self: stretch;
-  display: flex;
-  flex-direction: column;
-}
-
 .friends {
   display: flex;
   align-self: flex-start;
@@ -22,24 +16,26 @@
   }
 }
 
-.oneMonsterBattles {
-  // position: absolute;
+.fightingSlots {
   align-self: stretch;
   display: flex;
   justify-content: space-between;
 }
 
-.twoMonsterBattles {
+
+.monsters {
   align-self: stretch;
   display: flex;
   justify-content: space-between;
 }
 
-.battle, .twoMonsterBattle {
-  flex: 1;
-  display: flex;
+.twoMonsterSlot {
+  visibility: hidden;
+  &.visible {
+    visibility: visible;
+  }
 }
 
-.hoverZone {
-  align-self: flex-end;
+.oneMonsterSlot {
+  display: flex;
 }

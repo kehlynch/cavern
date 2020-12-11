@@ -1,0 +1,14 @@
+@import 'constants';
+
+.container {
+  width: $monsterCardWidth;
+  justify-content: center;
+  &.doubleWidth {
+    width: ($monsterCardWidth * 2) + 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  &.hidden {
+    visibility: hidden
+  }
+}

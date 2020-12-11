@@ -10,8 +10,8 @@ import { MonsterType } from '../types';
 
 class FighterSlot extends React.Component {
   renderPlaceholder() {
-    const { addFighter } = this.props;
-    return <MonsterPlaceholder onDrop={addFighter} />;
+    const { addFighter, visible } = this.props;
+    return <MonsterPlaceholder onDrop={addFighter} visible={visible} />;
   }
 
   render() {
@@ -23,9 +23,15 @@ class FighterSlot extends React.Component {
   }
 }
 
+FighterSlot.defaultProps = {
+  fighter: null,
+  visible: true,
+};
+
 FighterSlot.propTypes = {
   fighter: MonsterType,
   addFighter: PropTypes.func,
+  visible: PropTypes.bool,
 };
 
 export default FighterSlot;

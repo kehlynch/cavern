@@ -8,47 +8,55 @@ import { MONSTER } from '../types';
 
 class HoverableInner extends React.Component {
   componentDidUpdate(prevProps) {
-    console.log('componentDidUpdate HoverableInner', prevProps, this.props);
     const { isOver, onHover, onStopHover } = this.props;
     if (isOver !== prevProps.isOver) {
       if (isOver) {
-        console.log('on hover');
         onHover();
       } else {
-        console.log('on stop hover');
         onStopHover();
       }
     }
   }
 
   render() {
-    return <div className={styles.container} />;
+    const { children } = this.props;
+    return <div className={styles.container}>{children}</div>;
   }
 }
 
 HoverableInner.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   onHover: PropTypes.func,
   onStopHover: PropTypes.func,
   isOver: PropTypes.bool,
 };
 
 const Hoverable = (props) => {
-  const { onHover, onStopHover } = props;
-  console.log('render Hoverable', onHover);
+  const { onHover, onStopHover, children } = props;
   const [{ isOver }, drop] = useDrop({
     accept: MONSTER,
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
+    collect: (monitor) => {
+      return {
+        isOver: !!monitor.isOver(),
+      };
+    },
   });
   return (
     <div ref={drop}>
-      <HoverableInner isOver={isOver} onHover={onHover} onStopHover={onStopHover} />
+      <HoverableInner
+        isOver={isOver}
+        onHover={onHover}
+        onStopHover={onStopHover}
+        styles={styles.inner}
+      >
+        {children}
+      </HoverableInner>
     </div>
   );
 };
 
 Hoverable.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   onHover: PropTypes.func,
   onStopHover: PropTypes.func,
 };
